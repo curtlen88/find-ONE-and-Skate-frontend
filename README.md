@@ -15,7 +15,7 @@
 
 ## User Stories
 
-- As a user, I want to be able to create a new profile with an email and password
+* As a user, I want to be able to create a new profile with an email and password
 * As a user, I want to be able to sign in to my account
 * As a user, I want to be able to update my password
 * As a user, I want to be able to search on the map for the skate spots
