@@ -1,7 +1,11 @@
 ## FIND ONE AND SKATE ()
 
 
-"Introducing the Find One and Skate - a one-of-a-kind app designed specifically for skateboarders. Our app provides a comprehensive platform for the skateboarding community to discover, share, and connect. With an interactive map, users can search for the best skateboarding spots, view photos and videos of the spots uploaded by other users, and even add their own favorite spots to the map. By creating an account, users can not only contribute to the growth of the skateboarding community but also receive additional perks such as the ability to save their favorite spots, leave comments and reviews, and connect with other skateboarders. Our mission is to create a supportive and inclusive environment for skateboarders of all levels to connect, share their experiences, and progress their skills. With its innovative features and user-friendly design, the Skateboarding Spot Finder is set to revolutionize the way the skateboarding community discovers and interacts with each other. "
+  Introducing the Find One and Skate - a one-of-a-kind app designed specifically for skateboarders. Our app provides a comprehensive platform for the skateboarding community to discover, share, and connect. With an interactive map, users can search for the best skateboarding spots, view photos and videos of the spots uploaded by other users, and even add their own favorite spots to the map. By creating an account, users can not only contribute to the growth of the skateboarding community but also receive additional perks such as the ability to save their favorite spots, leave comments and reviews, and connect with other skateboarders. Our mission is to create a supportive and inclusive environment for skateboarders of all levels to connect, share their experiences, and progress their skills. With its innovative features and user-friendly design, the Skateboarding Spot Finder is set to revolutionize the way the skateboarding community discovers and interacts with each other.
+  
+## CREATORS
+- Curtlen Aumiller
+- Charles Lamb
 
 ## Tech Stack
 
@@ -13,8 +17,10 @@
 - BCryptjs
 - Leaflet 
 
-## User Stories
+## User Flow
+- For ease of use, we plan on using modals so user never has to navigate away from the map page just to fill out a form etc.  Images & videos will render to the side of the map as to not disrupt the discovery of new spots. 
 
+## User Stories
 * As a user, I want to be able to create a new profile with an email and password
 * As a user, I want to be able to sign in to my account
 * As a user, I want to be able to update my password
@@ -25,6 +31,13 @@
 * As a user, I want to be able to delete a skate spot I have created or favorited
 * As a user, I want to be able to add/delete additional images and videos of a skate spot I have created
 
+## SPRINTS
+- Friday // Study documentation on Mapbox & Leaflet and determine use case for both.  EOD Choose one, begin implementation.
+- Weekend // Establish map functionality and desired user map experience.
+- Monday // Database integration and server file structure setup.
+- Tuesday // Map out pages and stub out components.
+- Wednesday // Add data to all relevant files & comonents and test functionality.
+- Thursday // Add Styling/CSS framework.
 
 
 ## MVP GOALS
@@ -33,9 +46,6 @@
 - The app will have a feature to alow the user to add a pin and relevant information to the spot.
 - Implement the use of modals for a better user experience and quick functionality.
 - Implement the ability to up/downvote a spot on the map.
-
-
-
 
 ## STRETCH GOALS
 - Create a competitve user feature "king of the spot" where the most upvoted content becomes eligible to win prizes from selcted skate partnerships.
