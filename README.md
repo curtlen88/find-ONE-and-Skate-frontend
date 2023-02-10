@@ -50,7 +50,11 @@
 ## STRETCH GOALS
 - Create a competitve user feature "king of the spot" where the most upvoted content becomes eligible to win prizes from selcted skate partnerships.
 - Implement the use of a geolocation API to get user location, so they can view nearby spots.
-- Provide diretions to nearby spots.
+- Provide directions to nearby spots.
+- Use sorting to display most upvoted videos at the top of the list.
+- Link to social media upload page.
+- Size of pin on map determined by quantity of user content.
+- Reponsive views on all devices.
 
 
 
