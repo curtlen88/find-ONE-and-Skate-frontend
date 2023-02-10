@@ -13,7 +13,15 @@
 
 ## User Stories
 
-- As a user, i want to log in/out of my account.
+- As a user, I want to be able to create a new profile with an email and password
+* As a user, I want to be able to sign in to my account
+* As a user, I want to be able to update my password
+* As a user, I want to be able to search on the map for the skate spots
+* As a user, I want to be able to click on a pin to see the skate spot images and videos
+* As a user, I want to be able to add favorite skate spots to be saved to my profile
+* As a user, I want to be able to create a new skate spot and add images and videos of that skate spot
+* As a user, I want to be able to delete a skate spot I have created or favorited
+* As a user, I want to be able to add/delete additional images and videos of a skate spot I have created
 
 
 
