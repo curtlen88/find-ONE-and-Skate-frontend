@@ -9,6 +9,24 @@
       name="description"
       content="Web site created using create-react-app"
     />
+    <!-- MAPBOX  -->
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+
+      <style>
+        body { 
+          margin: 0; 
+          padding: 0; 
+        }
+        #map { 
+          position: absolute; 
+          top: 0; 
+          bottom: 0; 
+          width: 100%; 
+        }
+      </style>
+
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -39,5 +57,38 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <div id='map' style='width: 65%; height: 80%;'></div>
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1IjoiY3VydGxlbjg4IiwiYSI6ImNsZHl0Z2g2bzB1bXgzcHA1eGoybTZuMGUifQ.MkzaoBuSODGhkwQvvPlmZg';
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/examples/cjgiiz9ck002j2ss5zur1vjji',
+        center: [-87.661557, 41.893748],
+        zoom: 10.7
+      });
+
+    /* Add an event listener that runs when a user clicks on the map element. */
+    map.on('click', (event) => {
+
+      // If the user clicked on one of your markers, get its information.
+      const features = map.queryRenderedFeatures(event.point, {
+        layers: ['chicago-parks'] // replace with your layer name
+      });
+      if (!features.length) {
+        return;
+      }
+      const feature = features[0];
+
+      /* Create a popup, specify its options and properties, and add it to the map.*/
+      const popup = new mapboxgl.Popup({ offset: [0, -15] })
+        .setLngLat(feature.geometry.coordinates)
+        .setHTML(
+          `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+        )
+        .addTo(map);
+    });
+    </script>
+
   </body>
 </html>
