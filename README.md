@@ -27,11 +27,13 @@
 
 
 ## Entity Relationship Diagram
+![skate-erd](https://user-images.githubusercontent.com/117604017/218008705-6b96dcf7-4128-482f-b006-44d4cf0c9b9a.png)
 
 
 
 
 ## RESTful Routing Chart
+![Screen Shot 2023-02-09 at 9 23 29 PM](https://user-images.githubusercontent.com/117604017/218008888-cb4e9a84-c52b-456c-82b5-2fbe465a9797.png)
 
 
 
