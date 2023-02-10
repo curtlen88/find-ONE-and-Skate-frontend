@@ -41,3 +41,6 @@
 
 ## Wireframes of User Views
 ![Screen Shot 2023-02-09 at 9 45 57 PM](https://user-images.githubusercontent.com/117604017/218011167-d030a26a-7b7d-410a-b25c-e900d80ea8be.png)
+
+
+![Screen Shot 2023-02-09 at 9 49 46 PM](https://user-images.githubusercontent.com/117604017/218011677-e0d22ee2-3ffe-430a-9ad1-4e5ace0597ff.png)
