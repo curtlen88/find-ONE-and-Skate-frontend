@@ -64,16 +64,19 @@
       var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/examples/cjgiiz9ck002j2ss5zur1vjji',
-        center: [-87.661557, 41.893748],
+        center: [-122.2712, 37.8044], // longitude, then latitude
         zoom: 10.7
       });
 
     /* Add an event listener that runs when a user clicks on the map element. */
     map.on('click', (event) => {
-
+      /* Create a new marker and set its properties. */
+      var marker = new mapboxgl.Marker()
+        .setLngLat(event.lngLat)
+        .addTo(map);
       // If the user clicked on one of your markers, get its information.
       const features = map.queryRenderedFeatures(event.point, {
-        layers: ['chicago-parks'] // replace with your layer name
+        layers: ['oakland-parks'] // replace with your layer name
       });
       if (!features.length) {
         return;
