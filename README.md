@@ -9,7 +9,9 @@
 - Express
 - Nodejs
 - MongoDB
+- MapBox
 - BCryptjs
+- Leaflet 
 
 ## User Stories
 
