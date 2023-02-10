@@ -18,7 +18,7 @@
 - Leaflet 
 
 ## User Flow
-- For ease of use, we plan on using modals so user never has to navigate away from the map page just to fill out a form etc.  Images & videos will render to the side of the map as to not disrupt the discovery of new spots. 
+- For ease of use, we plan on using modals so the user never has to navigate away from the map page just to fill out a form etc.  Images & videos will render to the side of the map as to not disrupt the discovery of new spots. 
 
 ## User Stories
 * As a user, I want to be able to create a new profile with an email and password
@@ -36,7 +36,7 @@
 - Weekend // Establish map functionality and desired user map experience.
 - Monday // Database integration and server file structure setup.
 - Tuesday // Map out pages and stub out components.
-- Wednesday // Add data to all relevant files & comonents and test functionality.
+- Wednesday // Add data to all relevant files & components and test functionality.
 - Thursday // Add Styling/CSS framework.
 
 
