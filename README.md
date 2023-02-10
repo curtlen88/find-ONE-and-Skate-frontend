@@ -18,11 +18,19 @@
 
 
 ## MVP GOALS
+- Create an app that displays an interactive map with location pins showing skate spots.
+- The user will be able to click on a pin, and view information about the spot including photos and videos, best times to visit, etc.
+- The app will have a feature to alow the user to add a pin and relevant information to the spot.
+- Implement the use of modals for a better user experience and quick functionality.
+- Implement the ability to up/downvote a spot on the map.
 
 
 
 
 ## STRETCH GOALS
+- Create a competitve user feature "king of the spot" where the most upvoted content becomes eligible to win prizes from selcted skate partnerships.
+- Implement the use of a geolocation API to get user location, so they can view nearby spots.
+- Provide diretions to nearby spots.
 
 
 
