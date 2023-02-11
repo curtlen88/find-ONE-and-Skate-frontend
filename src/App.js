@@ -1,8 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import "mapbox-gl/dist/mapbox-gl.css"
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import GeocodeForm from './components/GeocodeForm';
+import './index.css';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiY3VydGxlbjg4IiwiYSI6ImNsZHl0MGRvcTA4Y3MzcG84NDBtMXZhZXAifQ.mmZkNYI7upEcQHdFSAi1CQ';
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
 export default function App() {
   const mapContainer = useRef(null);
@@ -42,6 +44,7 @@ export default function App() {
 
   return (
     <div>
+      <GeocodeForm />
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
