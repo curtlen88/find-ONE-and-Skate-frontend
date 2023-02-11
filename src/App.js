@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import "mapbox-gl/dist/mapbox-gl.css"
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3VydGxlbjg4IiwiYSI6ImNsZHl0MGRvcTA4Y3MzcG84NDBtMXZhZXAifQ.mmZkNYI7upEcQHdFSAi1CQ';
@@ -6,9 +7,10 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY3VydGxlbjg4IiwiYSI6ImNsZHl0MGRvcTA4Y3MzcG84N
 export default function App() {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(-70.9);
-  const [lat, setLat] = useState(42.35);
-  const [zoom, setZoom] = useState(9);
+  const marker = useRef(null);
+  const [lng, setLng] = useState(-122.2712);
+  const [lat, setLat] = useState(37.8044);
+  const [zoom, setZoom] = useState(10);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -22,6 +24,15 @@ export default function App() {
 
   useEffect(() => {
     if (!map.current) return; // wait for map to initialize
+    map.current.on('click', (e) => { // add marker on click event
+      // if (marker.current) { // remove marker if already exists
+      //   marker.current.remove(); // remove marker
+      // }
+      marker.current = new mapboxgl.Marker() // add marker
+        .setLngLat(e.lngLat) // set marker position
+        .addTo(map.current); // add marker to map
+    });
+
     map.current.on('move', () => {
       setLng(map.current.getCenter().lng.toFixed(4));
       setLat(map.current.getCenter().lat.toFixed(4));
