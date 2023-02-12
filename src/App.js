@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+
 import "mapbox-gl/dist/mapbox-gl.css"
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import GeocodeForm from './components/GeocodeForm';
@@ -10,6 +11,7 @@ export default function App() {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const marker = useRef(null);
+  const [showInfo, setShowInfo] = useState(false);
   const [lng, setLng] = useState(-122.2712);
   const [lat, setLat] = useState(37.8044);
   const [zoom, setZoom] = useState(10);
