@@ -22,7 +22,7 @@ export default function Signup(props) {
         password: password,
       }
 
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api-v1/users/register`, requestBody)
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/register`, requestBody)
       
       // destructure response
       const { token } = response.data
