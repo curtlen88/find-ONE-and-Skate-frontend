@@ -59,7 +59,7 @@ export default function App() {
               element={<Welcome />}
             />
             <Route
-              path="/users/register"
+              path="/register"
               element={
                 <Register
                   currentUser={currentUser}
@@ -68,7 +68,7 @@ export default function App() {
               }
             />
             <Route
-              path="/users/login"
+              path="/login"
               element={
                 <Login
                   currentUser={currentUser}
@@ -78,7 +78,7 @@ export default function App() {
             />
 
             <Route
-              path="/users/:id"
+              path="/profile"
               element={
                 <Profile
                   handleLogout={handleLogout}

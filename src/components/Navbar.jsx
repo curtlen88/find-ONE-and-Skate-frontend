@@ -18,7 +18,7 @@ export default function Navbar(currentUser, handleLogout) {
             <br/>
             <Link to="/login">Login</Link>
             <br/>
-            <Link to="/signup">Signup</Link>
+            <Link to="/register">Register</Link>
             <br/>
         </>
     )
