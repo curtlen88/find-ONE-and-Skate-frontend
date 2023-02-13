@@ -1,9 +1,9 @@
 import {Link} from 'react-router-dom';
 
-export default function Navbar(currentUser, handleLogout) {
+export default function Navbar(props) {
     const loggedIn = (
         <>
-            <Link to="/">🛹FOAS</Link>
+            <Link to="/"><span onClick={ props.handleLogout }>log out</span>🛹FOAS</Link>
             <br/>
             <Link to="/profile">Profile</Link>
             <br/>
@@ -25,7 +25,7 @@ export default function Navbar(currentUser, handleLogout) {
 
     return (
         <>
-            {currentUser ? loggedIn : loggedOut}
+            {props.currentUser ? loggedIn : loggedOut}
         </>
     )
 }
