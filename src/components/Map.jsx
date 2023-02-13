@@ -174,9 +174,9 @@ export default function Map() {
   return (
     <div>
         <GeocodeForm setLat={setLat} setLng={setLng} />
-        <div className="sidebar">
+        {/* <div className="sidebar">
             Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-        </div>
+        </div> */}
         <div ref={mapContainer} className="map-container" />
     </div>
   );
