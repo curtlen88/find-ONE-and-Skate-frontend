@@ -1,0 +1,123 @@
+  const mapContainer = useRef(null);
+  const map = useRef(null);
+  const marker = useRef(null);
+  const popup = useRef(null);
+  const [lng, setLng] = useState(-122.2712);
+  const [lat, setLat] = useState(37.8044);
+  const [zoom, setZoom] = useState(10);
+
+  useEffect(() => {
+    if (map.current) return; // initialize map only once
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: "mapbox://styles/mapbox/dark-v11",
+      center: [lng, lat],
+      zoom: zoom,
+    });
+
+    // add navigation control (the +/- zoom buttons)
+    map.current.addControl(new mapboxgl.NavigationControl(), "bottom-right");
+
+    // add geolocate control to the map.
+    map.current.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+      })
+    );
+
+    // add fullscreen control to the map.
+    map.current.addControl(new mapboxgl.FullscreenControl());
+
+    // add scale control to the map.
+    map.current.addControl(
+      new mapboxgl.ScaleControl({
+        maxWidth: 80,
+        unit: "imperial",
+      })
+    );
+
+    // add a layer to the map
+    map.current.on("click", () => {
+      map.current.addLayer({
+        id: "points",
+        type: "marker",
+        // add a marker to the map where user clicked
+        source: {
+          type: "click",
+          data: {
+            type: "mouseclick",
+            coordinates: [lng, lat],
+          },
+        },
+        layout: {
+          "icon-image": "marker-15",
+          "icon-size": 1.5,
+          "icon-allow-overlap": true,
+        },
+      });
+    });
+
+    // add popup to marker
+    map.current.on("click", "points", (e) => {
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(e.features[0].properties.description)
+        .addTo(map.current);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the places layer.
+    map.current.on("mouseenter", "points", () => {
+      map.current.getCanvas().style.cursor = "pointer";
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.current.on("mouseleave", "points", () => {
+      map.current.getCanvas().style.cursor = "";
+    });
+
+  });
+
+  useEffect(() => {
+    if (!map.current) return; // wait for map to initialize
+    // Fly to the new location when the lat and lng state values change
+    map.current.flyTo({
+      center: [lng, lat],
+      zoom: zoom,
+      speed: 1, // animation speed, in seconds
+      curve: 1, // animation curve, controls the easing
+    });
+  }, [lat, lng, zoom]);
+
+  // useEffect(() => {
+  //   if (!map.current) return; // wait for map to initialize
+  //   // add a layer to the map
+
+  //   map.current.on('click', (e) => { // add marker on click event
+  //     // if (marker.current) marker.current.remove(); // remove existing marker if present
+
+  //     marker.current = new mapboxgl.Marker() // add marker
+  //       .setLngLat(e.lngLat) // set marker position
+  //       .addTo(map.current) // add marker to map
+
+  //     // add popup to marker
+  //     popup.current = new mapboxgl.Popup({ closeOnClick: false })
+  //       .setLngLat(e.lngLat)
+  //       // add a button to the popup that will add the marker to the database
+  //       .setHTML('<button onClick="addtoDB()">Add to Favorites</button>')
+  //       .addTo(map.current);
+  //   });
+  // });
+
+  return (
+    <div>
+      <GeocodeForm setLat={setLat} setLng={setLng} />
+      <div className="sidebar">
+        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+      </div>
+      <div ref={mapContainer} className="map-container" />
+    </div>
+  );
+}
