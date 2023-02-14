@@ -35,7 +35,11 @@ export default function Map() {
           .addTo(map.current)
           .setPopup(
             new mapboxgl.Popup({ offset: 25 }) // add popups
-              .setHTML( `<h3>${spot.name}</h3><p>${spot.description}</p>`) // add description to popup
+            .setHTML(`
+            <h3>${spot.name}</h3>
+            
+          `)
+          
           );
       });
     };
@@ -107,22 +111,35 @@ export default function Map() {
 
     // add popup to marker
     map.current.on("click", "points", (e) => {
-      // axios request to the spot mongodb to add a new spot
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        // add a button in the popup to add a new spot
+        .setHTML(`<form id="spotForm">
+        <label htmlfor="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label htmlfor="description">Description:</label>
+        <textarea id="description" name="description"></textarea><br><br>
+        <input type="submit" value="Submit">
+        </form>`)
+        .addTo(map.current);
+    
+      const spotForm = document.getElementById("spotForm");
+      spotForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        // axios request to the spot mongodb to add a new spot
         const addSpot = async () => {
           const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/spots`, {
             lng: e.lngLat.lng,
             lat: e.lngLat.lat,
+            name: document.getElementById("name").value,
+            description: document.getElementById("description").value,
           });
           console.log(response);
         }
         addSpot();
-      new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        // add a button in the popup to add a new spot
-        .setHTML(`<a href="http://localhost:3000">Add Spot</a>`)
-        .addTo(map.current);
-
+      });
     });
+    
 
     // Change the cursor to a pointer when the mouse is over the places layer.
     map.current.on("mouseenter", "points", () => {
