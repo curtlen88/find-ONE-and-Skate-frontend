@@ -12,7 +12,7 @@ export default function Signup(props) {
   // for flash message
   const [message, setMessage] = useState('')
 
-  const handleSumbit = async e => {
+  const handleSubmit = async e => {
     try { 
       e.preventDefault()
       // post to backend with form submission
@@ -56,7 +56,7 @@ export default function Signup(props) {
 
       <p>{message}</p>
 
-      <form onSubmit={handleSumbit}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor='name-input'>name:</label>
 
         <input
