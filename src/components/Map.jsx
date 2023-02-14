@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import "../index.css";
+import axios from "axios";
 
 import GeocodeForm from "./GeocodeForm";
 
@@ -12,9 +13,7 @@ export default function Map() {
   const map = useRef(null);
   const [lng, setLng] = useState(-122.2712);
   const [lat, setLat] = useState(37.8044);
-  const [zoom, setZoom] = useState(10);
-  const [hover, setHover] = useState(false);
-
+  const [zoom] = useState(10);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -24,6 +23,18 @@ export default function Map() {
       center: [lng, lat],
       zoom: zoom,
     });
+
+    // axios request to the spot mongodb to retrieve all the spots and add them to the map
+    const getSpots = async () => {
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots`);
+      const spots = response.data;
+      spots.forEach((spot) => {
+        new mapboxgl.Marker()
+          .setLngLat([spot.lng, spot.lat])
+          .addTo(map.current);
+      });
+    };
+    getSpots();
 
     // add navigation control (the +/- zoom buttons)
     map.current.addControl(new mapboxgl.NavigationControl(), "bottom-right");
@@ -48,37 +59,6 @@ export default function Map() {
         unit: "imperial",
       })
     );
-
-    // // add a layer to the map
-    // map.current.on("load", () => {
-    //   map.current.addLayer({
-    //     id: "points",
-    //     type: "circle",
-    //     source: {
-    //       type: "geojson",
-    //       data: {
-    //         type: "FeatureCollection",
-    //         features: [
-    //           {
-    //             type: "Feature",
-    //             geometry: {
-    //               type: "Point",
-    //               coordinates: [-122.2712, 37.8044],
-    //             },
-    //             properties: {
-    //               title: "Mapbox",
-    //               description: "San Francisco, California",
-    //             },
-    //           },
-    //         ],
-    //       },
-    //     },
-    //     paint: {
-    //       "circle-radius": 10,
-    //       "circle-color": "#007cbf",
-    //     },
-    //   });
-    // });
 
 // add a layer of dots to the map on mouse clicks
     map.current.on("load", () => {
@@ -122,17 +102,25 @@ export default function Map() {
         .setLngLat(e.lngLat)
         .setHTML(e.features[0].properties.description)
         .addTo(map.current);
+
+        // axios request to the spot mongodb to add a new spot
+          const addSpot = async () => {
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/spots`, {
+              lng: e.lngLat.lng,
+              lat: e.lngLat.lat,
+            });
+            console.log(response);
+          }
+          addSpot();
     });
 
     // Change the cursor to a pointer when the mouse is over the places layer.
     map.current.on("mouseenter", "points", () => {
-      setHover(true);
       map.current.getCanvas().style.cursor = "pointer";
     });
 
     // Change it back to a pointer when it leaves.
     map.current.on("mouseleave", "points", () => {
-      setHover(false);
       map.current.getCanvas().style.cursor = "";
     });
   });
@@ -148,28 +136,6 @@ export default function Map() {
       curve: 1, // animation curve, controls the easing
     });
   }, [lat, lng, zoom]);
-
-
-  // add points to the map on click
-  // useEffect(() => {
-  //   if (!map.current) return; // wait for map to initialize
-  //   // add a layer to the map
-
-  //   map.current.on('click', (e) => { // add marker on click event
-  //     // if (marker.current) marker.current.remove(); // remove existing marker if present
-
-  //     marker.current = new mapboxgl.Marker() // add marker
-  //       .setLngLat(e.lngLat) // set marker position
-  //       .addTo(map.current) // add marker to map
-
-  //     // add popup to marker
-  //     popup.current = new mapboxgl.Popup({ closeOnClick: false })
-  //       .setLngLat(e.lngLat)
-  //       // add a button to the popup that will add the marker to the database
-  //       .setHTML('<button onClick="addtoDB()">Add to Favorites</button>')
-  //       .addTo(map.current);
-  //   });
-  // });
 
   return (
     <div>
