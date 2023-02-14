@@ -1,8 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { Link, useRef, useEffect, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import "../index.css";
 import axios from "axios";
+
 
 import GeocodeForm from "./GeocodeForm";
 
@@ -31,10 +32,16 @@ export default function Map() {
       spots.forEach((spot) => {
         new mapboxgl.Marker()
           .setLngLat([spot.lng, spot.lat])
-          .addTo(map.current);
+          .addTo(map.current)
+          .setPopup(
+            new mapboxgl.Popup({ offset: 25 }) // add popups
+              .setHTML( `<h3>${spot.name}</h3><p>${spot.description}</p>`) // add description to popup
+          );
       });
     };
     getSpots();
+    
+    
 
     // add navigation control (the +/- zoom buttons)
     map.current.addControl(new mapboxgl.NavigationControl(), "bottom-right");
@@ -59,6 +66,8 @@ export default function Map() {
         unit: "imperial",
       })
     );
+
+
 
 // add a layer of dots to the map on mouse clicks
     map.current.on("load", () => {
@@ -98,20 +107,21 @@ export default function Map() {
 
     // add popup to marker
     map.current.on("click", "points", (e) => {
+      // axios request to the spot mongodb to add a new spot
+        const addSpot = async () => {
+          const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/spots`, {
+            lng: e.lngLat.lng,
+            lat: e.lngLat.lat,
+          });
+          console.log(response);
+        }
+        addSpot();
       new mapboxgl.Popup()
         .setLngLat(e.lngLat)
-        .setHTML(e.features[0].properties.description)
+        // add a button in the popup to add a new spot
+        .setHTML(`<a href="http://localhost:3000">Add Spot</a>`)
         .addTo(map.current);
 
-        // axios request to the spot mongodb to add a new spot
-          const addSpot = async () => {
-            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/spots`, {
-              lng: e.lngLat.lng,
-              lat: e.lngLat.lat,
-            });
-            console.log(response);
-          }
-          addSpot();
     });
 
     // Change the cursor to a pointer when the mouse is over the places layer.
