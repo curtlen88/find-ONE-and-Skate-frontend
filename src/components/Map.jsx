@@ -6,6 +6,7 @@ import axios from "axios";
 
 
 import GeocodeForm from "./GeocodeForm";
+import { Popup } from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
@@ -26,27 +27,66 @@ export default function Map() {
     });
 
     // axios request to the spot mongodb to retrieve all the spots and add them to the map
-    const getSpots = async () => {
+    // const getSpots = async () => {
+    //   const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots`);
+    //   const spots = response.data;
+    //   spots.forEach((spot) => {
+    //     new mapboxgl.Marker()
+    //       .setLngLat([spot.lng, spot.lat])
+    //       .addTo(map.current)
+    //       .setPopup(
+    //         new mapboxgl.Popup({ offset: 25 }) // add popups
+    //         .setHTML(`
+    //         <h3>${spot.name}</h3>
+    //         <p>${spot.description}</p>
+    //         `)
+    //       );
+    //   });
+    // };
+    // getSpots();
+
+    map.current.on("load", async () => {
       const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots`);
       const spots = response.data;
-      spots.forEach((spot) => {
-        new mapboxgl.Marker()
-          .setLngLat([spot.lng, spot.lat])
-          .addTo(map.current)
-          .setPopup(
-            new mapboxgl.Popup({ offset: 25 }) // add popups
-            .setHTML(`
-            <h3>${spot.name}</h3>
-            
-          `)
-          
-          );
+      const features = spots.map((spot) => {
+        return {
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [spot.lng, spot.lat],
+          },
+          properties: {
+            title: spot.name, // add a title to display in the popup
+            description: spot.description, // add a description to display in the popup
+          },
+        };
       });
-    };
-    getSpots();
+      map.current.addLayer({
+        id: "markers",
+        type: "symbol",
+        source: {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: features,
+          },
+        },
+        layout: {
+          "icon-image": "dot-11",
+          "icon-size": 3,
+        },
+      });
+      
+      // Add a popup to display on click
+      map.current.on("click", "markers", (e) => {
+        const { title, description } = e.features[0].properties;
+        new mapboxgl.Popup()
+          .setLngLat(e.features[0].geometry.coordinates)
+          .setHTML(`<h3>${title}</h3><p>${description}</p>`)
+          .addTo(map.current);
+      });
+    });
     
-    
-
     // add navigation control (the +/- zoom buttons)
     map.current.addControl(new mapboxgl.NavigationControl(), "bottom-right");
 
@@ -70,8 +110,6 @@ export default function Map() {
         unit: "imperial",
       })
     );
-
-
 
 // add a layer of dots to the map on mouse clicks
     map.current.on("load", () => {
@@ -139,10 +177,29 @@ export default function Map() {
         addSpot();
       });
     });
+
+     // show the location of the spot clicked on the map
+    map.current.on("click", "markers", (e) => {
+      console.log(e.target._easeOptions.center.lat);
+      // console.log(e.target);
+      // const getSpots = async () => {
+      //   const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots/${e.target._popups[0]._lngLat.lng}/${e.target._popups[0]._lngLat.lat}}`);
+      //   const spot = response.data;
+      //   // create a new div element below the map
+      //   const newDiv = document.createElement("div");
+      //   newDiv.id = "newDiv";
+      //   newDiv.innerHTML = `
+      //   <h3>${spot.name}</h3>
+      //   <p>${spot.description}</p>
+      //   `;
+      //   document.getElementById("map").appendChild(newDiv);  
+      // };
+      // getSpots();
+    });
     
 
     // Change the cursor to a pointer when the mouse is over the places layer.
-    map.current.on("mouseenter", "points", () => {
+    map.current.on("mouseenter", "points", "markers", () => {
       map.current.getCanvas().style.cursor = "pointer";
     });
 
