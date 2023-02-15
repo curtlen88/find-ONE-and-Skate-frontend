@@ -182,20 +182,20 @@ export default function Map() {
     map.current.on("click", "markers", (e) => {
       console.log(e.lngLat.lat);
       console.log(e.lngLat.lng);
-      // console.log(e.target);
-      // const getSpots = async () => {
-      //   const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots/${e.target._popups[0]._lngLat.lng}/${e.target._popups[0]._lngLat.lat}}`);
-      //   const spot = response.data;
-      //   // create a new div element below the map
-      //   const newDiv = document.createElement("div");
-      //   newDiv.id = "newDiv";
-      //   newDiv.innerHTML = `
-      //   <h3>${spot.name}</h3>
-      //   <p>${spot.description}</p>
-      //   `;
-      //   document.getElementById("map").appendChild(newDiv);  
-      // };
-      // getSpots();
+
+      const getSpots = async () => {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots/${e.lngLat.lat}/${e.lngLat.lng}`);
+        const spot = response.data;
+        // create a new div element below the map
+        const newDiv = document.createElement("div");
+        newDiv.id = "newDiv";
+        newDiv.innerHTML = `
+        <h3>${spot.name}</h3>
+        <p>${spot.description}</p>
+        `;
+        document.getElementById("map").appendChild(newDiv);  
+      };
+      getSpots();
     });
     
 
