@@ -180,7 +180,8 @@ export default function Map() {
 
      // show the location of the spot clicked on the map
     map.current.on("click", "markers", (e) => {
-      console.log(e.target._easeOptions.center.lat);
+      console.log(e.lngLat.lat);
+      console.log(e.lngLat.lng);
       // console.log(e.target);
       // const getSpots = async () => {
       //   const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots/${e.target._popups[0]._lngLat.lng}/${e.target._popups[0]._lngLat.lat}}`);
