@@ -134,13 +134,23 @@ export default function Map() {
       new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         // add a button in the popup to add a new spot
-        .setHTML(`<form id="spotForm">
-        <label htmlfor="name">Name:</label>
-        <input type="text" id="name" name="name"><br><br>
-        <label htmlfor="description">Description:</label>
-        <textarea id="description" name="description"></textarea><br><br>
-        <input type="submit" value="Submit">
-        </form>`)
+        .setHTML(`
+        <form id="spotForm" enctype="multipart/form-data">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name"><br><br>
+
+          <label for="description">Description:</label>
+          <input id="description" name="description" rows="4"></input><br><br>
+
+          <label for="picture">Picture:</label>
+          <input type="file" id="picture" name="picture"><br><br>
+
+          <label for="video">Video:</label>
+          <input type="file" id="video" name="video"><br><br>
+      
+          <input type="submit" value="Submit">
+        </form>
+        `)
         .addTo(map.current);
     
       const spotForm = document.getElementById("spotForm");
