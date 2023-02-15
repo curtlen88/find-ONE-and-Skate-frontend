@@ -58,6 +58,7 @@ export default function Map() {
           properties: {
             title: spot.name, // add a title to display in the popup
             description: spot.description, // add a description to display in the popup
+            id: spot._id
           },
         };
       });
@@ -180,11 +181,11 @@ export default function Map() {
 
      // show the location of the spot clicked on the map
     map.current.on("click", "markers", (e) => {
-      console.log(e.lngLat.lat);
-      console.log(e.lngLat.lng);
+      console.log(e.features[0].properties.id);
+      // console.log(e.lngLat.lng);
 
       const getSpots = async () => {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots/${e.lngLat.lat}/${e.lngLat.lng}`);
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots/${e.features[0].properties.id}`);
         const spot = response.data;
         // create a new div element below the map
         const newDiv = document.createElement("div");
