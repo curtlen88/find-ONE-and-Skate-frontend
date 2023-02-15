@@ -4,7 +4,7 @@ import Map from "../Map";
 
 export default function Home() {
     return (
-        <div>
+        <div id="map">
         <Map></Map>
         </div>
     );

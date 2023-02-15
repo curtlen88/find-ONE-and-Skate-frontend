@@ -26,25 +26,6 @@ export default function Map() {
       zoom: zoom,
     });
 
-    // axios request to the spot mongodb to retrieve all the spots and add them to the map
-    // const getSpots = async () => {
-    //   const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots`);
-    //   const spots = response.data;
-    //   spots.forEach((spot) => {
-    //     new mapboxgl.Marker()
-    //       .setLngLat([spot.lng, spot.lat])
-    //       .addTo(map.current)
-    //       .setPopup(
-    //         new mapboxgl.Popup({ offset: 25 }) // add popups
-    //         .setHTML(`
-    //         <h3>${spot.name}</h3>
-    //         <p>${spot.description}</p>
-    //         `)
-    //       );
-    //   });
-    // };
-    // getSpots();
-
     map.current.on("load", async () => {
       const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots`);
       const spots = response.data;
@@ -179,25 +160,37 @@ export default function Map() {
       });
     });
 
-     // show the location of the spot clicked on the map
-    map.current.on("click", "markers", (e) => {
-      console.log(e.features[0].properties.id);
-      // console.log(e.lngLat.lng);
-
-      const getSpots = async () => {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots/${e.features[0].properties.id}`);
-        const spot = response.data;
-        // create a new div element below the map
-        const newDiv = document.createElement("div");
-        newDiv.id = "newDiv";
-        newDiv.innerHTML = `
+if (map.current) {
+  map.current.on("click", "markers", (e) => {
+    console.log(e.features[0].properties.id);
+    const getSpots = async () => {
+      const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots/${e.features[0].properties.id}`);
+      const spot = response.data;
+      const newDiv = document.createElement("div");
+      newDiv.id = "newDiv";
+      newDiv.innerHTML = `
         <h3>${spot.name}</h3>
         <p>${spot.description}</p>
-        `;
-        document.getElementById("map").appendChild(newDiv);  
-      };
-      getSpots();
+      `;
+      setTimeout(() => {
+        const mapElem = document.getElementById("map");
+        if (mapElem) {
+          mapElem.appendChild(newDiv);
+        } else {
+          console.log("#map element not found");
+        }
+      }, 0);
+    };
+    getSpots().catch((error) => {
+      console.log(error);
     });
+  });
+} else {
+  console.log("map.current is null");
+}
+
+
+    
     
 
     // Change the cursor to a pointer when the mouse is over the places layer.
