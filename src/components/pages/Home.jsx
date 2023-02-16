@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Map from "../Map";
 
-export default function Home() {
+export default function Home(props) {
   const [showPopup, setShowPopup] = useState(false);
 
   const togglePopup = () => {
@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <div id="map">
-      <Map />
+      <Map currentUser={props.currentUser}/>
       <button onClick={togglePopup}>Click me for instructions!!</button>
       {showPopup && (
         <div className="popup">

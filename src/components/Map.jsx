@@ -10,7 +10,8 @@ import { Popup } from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
-export default function Map() {
+export default function Map(props) {
+  console.log(props)
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(-122.2712);
@@ -112,6 +113,9 @@ export default function Map() {
       });
       
       map.current.on("dblclick", (e) => {
+        console.log(props)
+        if (localStorage.getItem("jwt")) {
+          // allow user to add a spot if they are authenticated
         let features = map.current.getSource("points")._data.features;
         features.push({
           type: "Feature",
@@ -126,6 +130,10 @@ export default function Map() {
           type: "FeatureCollection",
           features: features,
         });
+        } else {
+          // if user is not authenticated, send alert to login
+          alert("You must be logged in to add spots to the map!");
+        }
       });
     });
 

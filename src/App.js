@@ -6,6 +6,7 @@ import {
 
 import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
+import modal from "react-modal";
 
 // component imports
 import Home from "./components/pages/Home";
@@ -46,13 +47,13 @@ export default function App() {
     <div>
       <Router>
         <header>
-          <Navbar currentUser={currentUser} handleLogout={handleLogout} />
+          <Navbar currentUser={currentUser} setCurrentUser={setCurrentUser} handleLogout={handleLogout} />
         </header>
         <div className="App">
           <Routes>
             <Route 
               path="/" 
-              element={<Home />} 
+              element={<Home currentUser={currentUser}/>} 
             />
             <Route 
               path="/welcome"
