@@ -1,13 +1,9 @@
-import React, { Link, useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import "../index.css";
 import axios from "axios";
-
-
-
 import GeocodeForm from "./GeocodeForm";
-import { Popup } from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
@@ -113,7 +109,7 @@ export default function Map(props) {
       });
       
       map.current.on("dblclick", (e) => {
-        // if (props.currentUser) {
+        if (localStorage.getItem("jwt")) {
           // allow user to add a spot if they are authenticated
         let features = map.current.getSource("points")._data.features;
         features.push({
@@ -129,10 +125,10 @@ export default function Map(props) {
           type: "FeatureCollection",
           features: features,
         });
-        // } else {
-        //   // if user is not authenticated, send alert to login
-        //   alert("You must be logged in to add spots to the map!");
-        // }
+        } else {
+          // if user is not authenticated, send alert to login
+          alert("You must be logged in to add spots to the map!");
+        }
       });
     });
 
@@ -179,6 +175,7 @@ export default function Map(props) {
     });
 
 if (map.current) {
+
   map.current.on("click", "markers", (e) => {
     const getSpots = async () => {
       const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/spots/${e.features[0].properties.id}`);
@@ -188,7 +185,10 @@ if (map.current) {
       newDiv.innerHTML = `
         <h3>${spot.spotDetails.name}</h3>
         <p>${spot.spotDetails.description}</p>
-        <img src="${spot.spotDetails.images[0]}" alt="spot image" />
+        // map the images if there are any 
+        ${spot.spotDetails.image ? spot.spotDetails.image.forEach((image) => `<img src="${image}" />`) : ""}
+        // forEach the videos if there are any
+        ${spot.spotDetails.video ? spot.spotDetails.video.forEach((video) => `<video src="${video}" />`) : ""}
       `;
       const existingDiv = document.getElementById("newDiv");
       if (existingDiv) {
