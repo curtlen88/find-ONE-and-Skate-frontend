@@ -6,7 +6,7 @@ import {
 
 import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
-import modal from "react-modal";
+
 
 // component imports
 import Home from "./components/pages/Home";
