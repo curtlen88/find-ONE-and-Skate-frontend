@@ -5,13 +5,13 @@ import "../index.css";
 import axios from "axios";
 
 
+
 import GeocodeForm from "./GeocodeForm";
 import { Popup } from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
 export default function Map(props) {
-  console.log(props)
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(-122.2712);
@@ -113,7 +113,6 @@ export default function Map(props) {
       });
       
       map.current.on("dblclick", (e) => {
-        console.log(props)
         if (localStorage.getItem("jwt")) {
           // allow user to add a spot if they are authenticated
         let features = map.current.getSource("points")._data.features;
@@ -143,38 +142,39 @@ export default function Map(props) {
         .setLngLat(e.lngLat)
         // add a button in the popup to add a new spot
         .setHTML(`
-        <form id="spotForm" enctype="multipart/form-data">
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name"><br><br>
+          <form id="spotForm" enctype="multipart/form-data">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br><br>
 
-          <label for="description">Description:</label>
-          <input id="description" name="description" rows="4"></input><br><br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4"></textarea><br><br>
 
-          <label for="picture">Picture:</label>
-          <input type="file" id="picture" name="picture"><br><br>
+            <label for="image">Picture:</label>
+            <input type="file" id="image" name="image"><br><br>
 
-          <label for="video">Video:</label>
-          <input type="file" id="video" name="video"><br><br>
-      
-          <input type="submit" value="Submit">
-        </form>
+            <label for="video">Video:</label>
+            <input type="file" id="video" name="video"><br><br>
+
+            <input type="submit" value="Submit">
+          </form>
         `)
         .addTo(map.current);
     
       const spotForm = document.getElementById("spotForm");
-      spotForm.addEventListener("submit", (event) => {
+      spotForm.addEventListener("submit", async (event) => {
         event.preventDefault();
-        // axios request to the spot mongodb to add a new spot
-        const addSpot = async () => {
+        const formData = new FormData(event.target);
+        formData.set("image", formData.get("image")); // use "image" instead of "picture"
+        const {data} = await axios.post(`${process.env.REACT_APP_SERVER_URL}/images`, formData);
+        console.log(data.cloudImage);
           const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/spots`, {
             lng: e.lngLat.lng,
             lat: e.lngLat.lat,
             name: document.getElementById("name").value,
             description: document.getElementById("description").value,
+            image: data.cloudImage
           });
           console.log(response);
-        }
-        addSpot();
       });
     });
 
@@ -188,6 +188,7 @@ if (map.current) {
       newDiv.innerHTML = `
         <h3>${spot.spotDetails.name}</h3>
         <p>${spot.spotDetails.description}</p>
+        <img src="${spot.spotDetails.images[0]}" alt="spot image" />
       `;
       const existingDiv = document.getElementById("newDiv");
       if (existingDiv) {
