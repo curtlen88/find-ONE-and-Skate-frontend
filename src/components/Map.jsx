@@ -161,27 +161,20 @@ export default function Map(props) {
         .addTo(map.current);
     
       const spotForm = document.getElementById("spotForm");
-      spotForm.addEventListener("submit", (event) => {
+      spotForm.addEventListener("submit", async (event) => {
         event.preventDefault();
-        // axios request to the spot mongodb to add a new spot
-        const addSpot = async () => {
+        const formData = new FormData(event.target);
+        formData.set("image", formData.get("image")); // use "image" instead of "picture"
+        const {data} = await axios.post(`${process.env.REACT_APP_SERVER_URL}/images`, formData);
+        console.log(data.cloudImage);
           const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/spots`, {
             lng: e.lngLat.lng,
             lat: e.lngLat.lat,
             name: document.getElementById("name").value,
             description: document.getElementById("description").value,
+            image: data.cloudImage
           });
           console.log(response);
-        }
-        addSpot();
-      });
-
-      document.getElementById("spotForm").addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        formData.set("image", formData.get("image")); // use "image" instead of "picture"
-        const {data} = await axios.post(`${process.env.REACT_APP_SERVER_URL}/images`, formData);
-        console.log(data);
       });
     });
 
@@ -195,6 +188,7 @@ if (map.current) {
       newDiv.innerHTML = `
         <h3>${spot.spotDetails.name}</h3>
         <p>${spot.spotDetails.description}</p>
+        <img src="${spot.spotDetails.images[0]}" alt="spot image" />
       `;
       const existingDiv = document.getElementById("newDiv");
       if (existingDiv) {
