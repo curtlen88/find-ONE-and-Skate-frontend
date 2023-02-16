@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Profile from './Profile'
+
 
 export default function Login(props) {
 
@@ -10,7 +11,7 @@ export default function Login(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
-
+  const navigate = useNavigate()
   // submit will hit backend login endpoint
   const handleSumbit = async e => {
     try { 
@@ -31,13 +32,15 @@ export default function Login(props) {
 
       // get user data from the token
       const decoded = jwt_decode(token)
-
+      console.log(decoded)
       // set the current user in the top app state
       props.setCurrentUser(decoded)
-      
+      props.onClose()
+      props.onLogin()
+      // navigate('/profile')
     } catch(error) {
       // if the email/pass didn't match
-      if(error.response.status === 400) {
+      if(error.response?.status === 400) {
         setMessage(error.response.data.msg)
       } else {
         // otherwise log the error for debug
@@ -47,7 +50,7 @@ export default function Login(props) {
   }
 
   // Navigate to profile if user is logged in
-  if(props.currentUser) return <Navigate to='/profile' component={ Profile } currentUser={ props.currentUser } />
+  // if(props.currentUser) return <Navigate to='/profile' component={ Profile } setCurrentUser={ props.currentUser } />
 
   return (
     <div>
@@ -61,7 +64,7 @@ export default function Login(props) {
         <input
           id='email-input'
           type='email'
-          placeholder='user@domain.com'
+          placeholder='user@user.com'
           onChange={e => setEmail(e.target.value)}
           value={email}
         />

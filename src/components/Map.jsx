@@ -113,7 +113,7 @@ export default function Map(props) {
       });
       
       map.current.on("dblclick", (e) => {
-        // if (props.currentUser) {
+        if (localStorage.getItem("jwt")) {
           // allow user to add a spot if they are authenticated
         let features = map.current.getSource("points")._data.features;
         features.push({
@@ -129,10 +129,10 @@ export default function Map(props) {
           type: "FeatureCollection",
           features: features,
         });
-        // } else {
-        //   // if user is not authenticated, send alert to login
-        //   alert("You must be logged in to add spots to the map!");
-        // }
+        } else {
+          // if user is not authenticated, send alert to login
+          alert("You must be logged in to add spots to the map!");
+        }
       });
     });
 
