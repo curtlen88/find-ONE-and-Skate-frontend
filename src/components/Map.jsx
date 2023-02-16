@@ -15,11 +15,12 @@ export default function Map(props) {
   const [zoom] = useState(10);
 
   useEffect(() => {
+  
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/mapbox/dark-v11",
-      center: [lng, lat],
+      // check the time of day and set the map style accordingly
+      style: "mapbox://styles/mapbox/satellite-streets-v12",
       zoom: zoom,
     });
 
@@ -55,6 +56,7 @@ export default function Map(props) {
         layout: {
           "icon-image": "dot-11",
           "icon-size": 3,
+          "icon-color": "#ff0000",
         },
       });
 
@@ -78,6 +80,9 @@ export default function Map(props) {
 
               <input type="submit" value="Submit">
             </form>
+            <form id="favoriteForm">
+              <input type="submit" value="Add to Favorites">
+            </form>
           `)
           .addTo(map.current);
         const spotForm = document.getElementById("spotForm");
@@ -94,6 +99,14 @@ export default function Map(props) {
               image: data.cloudImage,
               // video: dataVideo.cloudVideo,
             }
+          );
+        })
+        const favoriteForm = document.getElementById("favoriteForm");
+        favoriteForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          await axios.post(`${process.env.REACT_APP_SERVER_URL}/favorites/${id}`, {
+            spot: id,
+          }
           );
         })
         } else {
@@ -148,6 +161,8 @@ export default function Map(props) {
         layout: {
           "icon-image": "dot-11",
           "icon-size": 3,
+          // set color
+          "icon-color": "#ff0000",
         },
       });
 
