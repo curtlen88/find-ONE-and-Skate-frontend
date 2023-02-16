@@ -32,6 +32,7 @@ export default function Login(props) {
 
       // get user data from the token
       const decoded = jwt_decode(token)
+
       // set the current user in the top app state
       props.setCurrentUser(decoded)
       props.onClose()

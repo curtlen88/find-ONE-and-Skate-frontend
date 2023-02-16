@@ -38,7 +38,7 @@ export default function Signup(props) {
       
     } catch(error) {
       // if the email was found in the db
-      if(error.response.status === 400) {
+      if(error.response?.status === 400) {
         setMessage(error.response.data.msg)
       } else {
         // otherwise log the error for debug
@@ -48,7 +48,7 @@ export default function Signup(props) {
   }
 
   // Navigate to the profile if the user is logged in
-  if(props.currentUser) return <Navigate to='/profile' component={ Profile } currentUser={ props.currentUser } />
+  // if(props.currentUser) return <Navigate to='/profile' component={ Profile } currentUser={ props.currentUser } />
 
   return (
     <div>
@@ -72,7 +72,7 @@ export default function Signup(props) {
         <input
           id='email-input'
           type='email'
-          placeholder='user@domain.com'
+          placeholder='user@user.com'
           onChange={e => setEmail(e.target.value)}
           value={email}
         />
