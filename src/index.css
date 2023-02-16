@@ -1,31 +1,29 @@
 body {
-  background-color: rgb(168, 160, 160);
-  /* background-image: linear-gradient(to bottom right, #ff9966, #ff5e62); */
-  background-blend-mode: screen;
-  background-attachment: fixed;
-  background-size: cover;
-  box-shadow: inset 0 0 100px rgba(255, 255, 255, 0.1);
+  background-color: black;
+ 
 }
 
 
 .map-container {
-  height: 400px;
+  height: 500px;
   margin-top: 5px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 .navbar {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   align-items: center;
   justify-content: space-between;
   padding-top: 10px;
   padding-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
   background-color: #333;
   color: white;
 }
 
 .navbar a {
-  color: rgb(159, 46, 46);
+  color: white;
   text-decoration: none;
   text-align: center;
   font-size: 20px;
@@ -37,7 +35,7 @@ body {
   color: #ffc107;
 }
 
-.custom-modal {
+/* .custom-modal {
   position: fixed !important;
   top: 50% !important;
   left: 50% !important;
@@ -48,18 +46,189 @@ body {
   border-radius: 4px;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
   background-color: #fff;
-}
+  opacity: 0.7;
+} */
+
 
 .header {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* adds a subtle shadow */
-  background: linear-gradient(90deg, rgba(123, 39, 123, 1) 0%, rgba(67, 62, 213, 0.469) 50%, rgba(123, 39, 123, 1) 100%); /* adds a gradient background */
-  border: 2px solid rgba(0, 0, 0, 0.2); /* adds a border */
+  box-shadow: 0 2px 4px white; /* adds a subtle shadow */
+  background: linear-gradient(90deg, #1A8B3C, #2EA043, #47A74D, #64B259, #85BF68); /* adds a gradient background */
+  border: 1px solid white; /* adds a border */
+  color: white; /* changes the text color to white */
 }
 
-.map {
-  background-color: lightsteelblue;
+
+
+
+.popup {
+  border: 2px solid white; /* add a white border around the popup */
+  color: white; /* set the text color to white */
 }
+
+.about {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #4CAF50;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease-in-out;
+}
+
+
+.about:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5);
+}
+ 
+.login-form {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form-message {
+  color: #f00;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.form-input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-submit {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 4px;
+  padding: 10px 20px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.form-submit:hover {
+  background-color: #3e8e41;
+}
+
+
+.registration-form {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+.instructions-modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.instructions-modal__title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.instructions-modal__text {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.instructions-modal__list {
+  margin-bottom: 20px;
+}
+
+.instructions-modal__list-item {
+  margin-bottom: 5px;
+}
+
+.instructions-modal__button {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #4CAF50;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease-in-out;
+}
+
+.instructions-modal__button:hover {
+  transform: scale(1.05);
+}
+
+.Geo-button {
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.Geo-button:hover {
+  background-color: #007f00;
+}
+
+.Geo-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.Geo-input:focus {
+  outline: none;
+  border-color: #007f00;
+  box-shadow: 0 0 5px #007f00;
+}
+
+
+
+
+

@@ -51,46 +51,52 @@ export default function Signup(props) {
   // if(props.currentUser) return <Navigate to='/profile' component={ Profile } currentUser={ props.currentUser } />
 
   return (
-    <div>
-      <h3>Registration Form:</h3>
+    <div className="registration-form">
+  <h3 className="form-title">Registration Form:</h3>
 
-      <p>{message}</p>
+  <p className="form-message">{message}</p>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='name-input'>name:</label>
+  <form className="form" onSubmit={handleSubmit}>
+    <label className="form-label" htmlFor='name-input'>name:</label>
 
-        <input
-          id='name-input'
-          type='text'
-          placeholder='your name...'
-          onChange={e => setName(e.target.value)}
-          value={name}
-        />
+    <input
+      className="form-input"
+      id='name-input'
+      type='text'
+      placeholder='your name...'
+      onChange={e => setName(e.target.value)}
+      value={name}
+    />
 
-        <label htmlFor='email-input'>email:</label>
+    <label className="form-label" htmlFor='email-input'>email:</label>
 
-        <input
-          id='email-input'
-          type='email'
-          placeholder='user@user.com'
-          onChange={e => setEmail(e.target.value)}
-          value={email}
-        />
+    <input
+      className="form-input"
+      id='email-input'
+      type='email'
+      placeholder='user@user.com'
+      onChange={e => setEmail(e.target.value)}
+      value={email}
+    />
 
-        <label htmlFor='password-input'>password:</label>
+    <label className="form-label" htmlFor='password-input'>password:</label>
 
-        <input 
-          id='password-input'
-          type='password'
-          placeholder='password'
-          onChange={e => setPassword(e.target.value)}
-        />
+    <input 
+      className="form-input"
+      id='password-input'
+      type='password'
+      placeholder='password'
+      onChange={e => setPassword(e.target.value)}
+    />
 
-        <input 
-          type='submit'
-          value='login'
-        />
-      </form>
-    </div>
+    <input 
+      className="form-submit"
+      type='submit'
+      value='register'
+      onClick={props.onClose}
+    />
+  </form>
+</div>
+
   )
 }
