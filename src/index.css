@@ -18,8 +18,9 @@ body {
   padding-top: 10px;
   padding-bottom: 10px;
   box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
-  background-color: #333;
+  background: linear-gradient(90deg, #1A8B3C, #2EA043, #47A74D, #64B259, #85BF68);
   color: white;
+  box-shadow: 0 2px 4px white;
 }
 
 .navbar a {
@@ -55,9 +56,10 @@ body {
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  margin-top: -1px;
   box-shadow: 0 2px 4px white; /* adds a subtle shadow */
   background: linear-gradient(90deg, #1A8B3C, #2EA043, #47A74D, #64B259, #85BF68); /* adds a gradient background */
-  border: 1px solid white; /* adds a border */
+ 
   color: white; /* changes the text color to white */
 }
 
