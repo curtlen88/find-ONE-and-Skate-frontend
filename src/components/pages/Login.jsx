@@ -32,7 +32,6 @@ export default function Login(props) {
 
       // get user data from the token
       const decoded = jwt_decode(token)
-      console.log(decoded)
       // set the current user in the top app state
       props.setCurrentUser(decoded)
       props.onClose()
@@ -42,6 +41,7 @@ export default function Login(props) {
       // if the email/pass didn't match
       if(error.response?.status === 400) {
         setMessage(error.response.data.msg)
+        alert('Incorrect email or password. Please try again.')
       } else {
         // otherwise log the error for debug
         console.log(error)
