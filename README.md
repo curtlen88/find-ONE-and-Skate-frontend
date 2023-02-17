@@ -23,7 +23,40 @@
 - MongoDB
 - MapBox
 - BCryptjs
-- Leaflet 
+
+## Installation:
+
+* React:
+React is a JavaScript library for building user interfaces.
+
+To install React, you need to have Node.js and npm installed on your system. Once you have these installed, you can create a new React project using the following command: npx create-react-app find-one-and-skate.  Then after you CD into the app, run the following command: npm start.
+
+* Express:
+Express is a web application framework for Node.js.
+
+To install Express, you need to have Node.js and npm installed on your system. Once you have these installed, you can install Express using the following command: npm install express.
+
+* Node.js:
+Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+
+To install Node.js, you can download the installer from the official Node.js website at https://nodejs.org/en/download/. Follow the instructions provided by the installer to complete the installation.
+
+*MongoDB:
+MongoDB is a NoSQL database.
+
+To install MongoDB, you can download the appropriate installer from the official MongoDB website at https://www.mongodb.com/try/download/community. Follow the instructions provided by the installer to complete the installation.
+
+* MapBox:
+MapBox is a mapping platform for developers.
+
+To use MapBox in your project, you need to create a MapBox account and obtain an API key. You can then use the MapBox API to add maps to your application. To install the MapBox SDK for React, you can use the following command: npm install react-mapbox-gl.
+
+* BCryptjs:
+BCryptjs is a library for hashing passwords.
+
+To install BCryptjs, you can use the following command: npm install bcryptjs.
+
+
 
 ## User Flow
 - For ease of use, we plan on using modals so the user never has to navigate away from the map page just to fill out a form etc.  Images & videos will render to the side of the map as to not disrupt the discovery of new spots. 
