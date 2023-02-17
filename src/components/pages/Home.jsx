@@ -12,7 +12,7 @@ export default function Home(props) {
     <div id="map">
       <h1 className="header">🔍 Find One And Skate 🔎</h1>
       <Map currentUser={props.currentUser}/>
-      <button onClick={togglePopup}>About Find One And Skate</button>
+      <button className="about" onClick={togglePopup}>About Find One And Skate</button>
       {showPopup && (
         <div className="popup">
           <p>Welcome to Find One And Skate! Here, you can find spots on a map that are perfect for skateboarding. To get started, simply navigate the map by zooming in and out and panning around, and you'll see markers that indicate skateboarding spots. Click on any of these markers to view the name and description of that spot.

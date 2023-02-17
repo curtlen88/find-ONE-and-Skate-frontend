@@ -21,8 +21,8 @@ export default function Map(props) {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      // check the time of day and set the map style accordingly
       style: "mapbox://styles/mapbox/satellite-streets-v12",
+
       zoom: zoom,
     });
 
