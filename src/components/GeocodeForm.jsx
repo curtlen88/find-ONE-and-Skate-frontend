@@ -29,18 +29,20 @@ const GeocodeForm = (props) => {
         };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="city-input" >
-            <input
-                type="text"
-                id="city-input"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="Enter a City, State, or Country"
-            />
+        <form onSubmit={handleSubmit} className="Geo-form">
+            <label htmlFor="city-input" className="Geo-label">
+                <input
+                    type="text"
+                    id="city-input"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder="Enter a City, State, or Country"
+                    className="Geo-input"
+                />
             </label>
-            <button type="submit">Jump to City</button>
+            <button type="submit" className="Geo-button">Jump to City</button>
         </form>
+
     );
 };
 
