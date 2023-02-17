@@ -7,7 +7,7 @@ export default function Profile(props) {
   return (
     <div>
       <h1>Your Favorites</h1>
-      <FavoritesList/>
+      <FavoritesList currentUser={props.currentUser} />
     </div>
   )
 }

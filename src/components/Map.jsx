@@ -4,15 +4,17 @@ import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-load
 import "../index.css";
 import axios from "axios";
 import GeocodeForm from "./GeocodeForm";
+import { FullscreenControl } from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
 export default function Map(props) {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(-122.2712);
-  const [lat, setLat] = useState(37.8044);
-  const [zoom] = useState(10);
+  const [lng, setLng] = useState(-98.201727);
+  const [lat, setLat] = useState(38.34501);
+  const [zoom] = useState(2);
+  
 
   useEffect(() => {
   
@@ -23,6 +25,31 @@ export default function Map(props) {
       style: "mapbox://styles/mapbox/satellite-streets-v12",
       zoom: zoom,
     });
+
+    // add navigation control (the +/- zoom buttons)
+    map.current.addControl(new mapboxgl.NavigationControl(), "bottom-right");
+
+    // add geolocate control to the map.
+    map.current.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+      })
+    );
+
+    // add fullscreen control to the map.
+    map.current.addControl(new mapboxgl.FullscreenControl());
+
+
+    // add scale control to the map.
+    map.current.addControl(
+      new mapboxgl.ScaleControl({
+        maxWidth: 80,
+        unit: "imperial",
+      })
+    );
 
     map.current.on("load", async () => {
       const response = await axios.get(
@@ -56,7 +83,6 @@ export default function Map(props) {
         layout: {
           "icon-image": "dot-11",
           "icon-size": 3,
-          "icon-color": "#ff0000",
         },
       });
 
@@ -91,9 +117,6 @@ export default function Map(props) {
           const formData = new FormData(event.target);
           formData.set("image", formData.get("image")); // use "image" instead of "picture"
           const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/images`,formData);
-          console.log('this is the data that holds the url ----',data.cloudImage);
-          console.log(typeof id)
-          console.log('this is the id',id)
           // const { dataVideo } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/videos`,formData);
           await axios.post(`${process.env.REACT_APP_SERVER_URL}/spots/${id}`, {
               image: data.cloudImage,
@@ -101,12 +124,19 @@ export default function Map(props) {
             }
           );
         })
+        console.log("e.feat -----", e.features[0].properties)
+        console.log("id-----", id)
+        const token = localStorage.getItem('jwt')
         const favoriteForm = document.getElementById("favoriteForm");
         favoriteForm.addEventListener("submit", async (event) => {
           event.preventDefault();
-          await axios.post(`${process.env.REACT_APP_SERVER_URL}/favorites/${id}`, {
-            spot: id,
-          }
+          // await axios.get(`${process.env.REACT_APP_SERVER_URL}/spot/${id}`, {
+          //   id: id 
+          // }  
+          // );
+          await axios.post(`${process.env.REACT_APP_SERVER_URL}/favorites`, {
+            id: id,
+          }, {headers: { Authorization: token } }
           );
         })
         } else {
@@ -121,30 +151,6 @@ export default function Map(props) {
         }
       });
     });
-
-    // add navigation control (the +/- zoom buttons)
-    map.current.addControl(new mapboxgl.NavigationControl(), "bottom-right");
-
-    // add geolocate control to the map.
-    map.current.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true,
-        },
-        trackUserLocation: true,
-      })
-    );
-
-    // add fullscreen control to the map.
-    map.current.addControl(new mapboxgl.FullscreenControl());
-
-    // add scale control to the map.
-    map.current.addControl(
-      new mapboxgl.ScaleControl({
-        maxWidth: 80,
-        unit: "imperial",
-      })
-    );
 
     // add a layer of dots to the map on mouse clicks
     map.current.on("load", () => {
@@ -161,8 +167,6 @@ export default function Map(props) {
         layout: {
           "icon-image": "dot-11",
           "icon-size": 3,
-          // set color
-          "icon-color": "#ff0000",
         },
       });
 
@@ -302,9 +306,9 @@ export default function Map(props) {
   return (
     <div>
       <GeocodeForm setLat={setLat} setLng={setLng} />
-      {/* <div className="sidebar">
+      <div className="sidebar">
             Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-        </div> */}
+        </div>
       <div ref={mapContainer} className="map-container" />
     </div>
   );
