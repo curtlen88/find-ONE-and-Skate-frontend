@@ -2,8 +2,6 @@ body {
   background-color: black;
 }
 
-
-
 .map-container {
   height: 500px;
   margin-top: 5px;
@@ -232,8 +230,96 @@ form {
 
 #newDiv {
   color: white
-
 }
+
+.card-container {
+  display: flex;
+  /* flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row; */
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  color: white;
+  background-color: #1A8B3C;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  width: 250px;
+  height: 300px;
+  overflow: hidden;
+  transition: transform 0.5s;
+}
+
+.card img {
+  width: 100%;
+  height: 175px;
+  object-fit: cover;
+}
+
+.card-text {
+  padding: 10px;
+  text-align: center;
+}
+
+.card:hover {
+  transform: rotateY(360deg);
+}
+
+.card .card-front,
+.card .card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card .card-front {
+  z-index: 2;
+}
+
+.card .card-back {
+  transform: rotateY(360deg);
+}
+
+.card .card-back .card-text {
+  transform: rotateY(360deg);
+}
+
+.card .card-front .card-text {
+  transform: rotateY(0deg);
+}
+
+
+#favHeader {
+  position: relative;
+  color: white;
+  text-align: center;
+  margin-top: -50px;
+  animation: slideIn 1s ease-out;
+  text-shadow: 0 0 5px white;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+
+
+
+
+
 
 
 
