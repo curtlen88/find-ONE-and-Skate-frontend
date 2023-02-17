@@ -93,7 +93,7 @@ export default function Signup(props) {
       className="form-submit"
       type='submit'
       value='register'
-      onClick={props.onClose}
+      // onClick={props.onClose}
     />
   </form>
 </div>

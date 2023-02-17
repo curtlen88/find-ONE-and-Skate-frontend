@@ -4,7 +4,6 @@ import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 import Profile from './Profile'
 
-
 export default function Login(props) {
 
   // for controlled form
@@ -85,7 +84,7 @@ export default function Login(props) {
       className="form-submit"
       type='submit'
       value='login'
-      onClick={props.onClose}
+      // onClick={props.onClose}
     />
   </form>
 </div>
