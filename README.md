@@ -3,6 +3,14 @@
 
   Introducing Find One and Skate - a one-of-a-kind app designed specifically for skateboarders. Our app provides a comprehensive platform for the skateboarding community to discover, share, and connect. With an interactive map, users can search for the best skateboarding spots, view photos and videos of the spots uploaded by other users, and even add their own favorite spots to the map. By creating an account, users can not only contribute to the growth of the skateboarding community but also receive additional perks such as the ability to save their favorite spots, leave comments and reviews, and connect with other skateboarders. Our mission is to create a supportive and inclusive environment for skateboarders of all levels to connect, share their experiences, and progress their skills. With its innovative features and user-friendly design, Find One And Skate is set to revolutionize the way the skateboarding community discovers and interacts with each other. 
   
+## Screen Shots From App  
+![Screen Shot 2023-02-16 at 7 38 51 PM](https://user-images.githubusercontent.com/117604017/219544188-51af7d9d-fdda-4020-a0ab-fff2155ed21f.png)
+![Screen Shot 2023-02-16 at 7 48 22 PM](https://user-images.githubusercontent.com/117604017/219545346-28af282d-dd01-4d21-934b-5b45579fb67f.png)
+![Screen Shot 2023-02-16 at 7 46 23 PM](https://user-images.githubusercontent.com/117604017/219545426-df52990f-aa6b-4fb3-aa97-8a9e080fadb4.png)
+
+
+  
+  
 ## CREATORS
 - Curtlen Aumiller
 - Charles Lamb
