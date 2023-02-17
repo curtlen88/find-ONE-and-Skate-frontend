@@ -4,7 +4,6 @@ import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-load
 import "../index.css";
 import axios from "axios";
 import GeocodeForm from "./GeocodeForm";
-import { FullscreenControl } from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
@@ -15,7 +14,6 @@ export default function Map(props) {
   const [lat, setLat] = useState(38.34501);
   const [zoom] = useState(2);
   
-
   useEffect(() => {
   
     if (map.current) return; // initialize map only once
