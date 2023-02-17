@@ -1,7 +1,4 @@
-// import { useState, useEffect } from 'react'
-// import { Navigate } from 'react'
-// import axios from 'axios'
-// import Login from './Login'
+import FavoritesList from '../FavoritesList'
 
 export default function Profile(props) {
   // const [message, setMessage] = useState('')
@@ -9,7 +6,8 @@ export default function Profile(props) {
   
   return (
     <div>
-      <h3>Profile Page:</h3>
+      <h1>Your Favorites</h1>
+      <FavoritesList currentUser={props.currentUser} />
     </div>
   )
 }
